@@ -1,8 +1,12 @@
+import os
 import streamlit as st
 import pandas as pd
 from joblib import load
 
-model = load("data/iris_model.joblib")
+# folder = the folder where this file lives, so the paths work anywhere
+folder = os.path.dirname(os.path.abspath(__file__))
+
+model = load(os.path.join(folder, "data", "iris_model.joblib"))
 
 st.title("IRIS FLOWER PREDICTOR APP")
 st.write("Enter the flower measurements in centimeters, then click Predict.")
@@ -33,13 +37,13 @@ if predict_button:
     # 0: Iris Setosa, 1: Iris Versicolour, 2: Iris Virginica
     if prediction[0] == 0:
         flower = "Setosa"
-        image_file = "images/iris_setosa.png"
+        image_file = os.path.join(folder, "images", "iris_setosa.png")
     elif prediction[0] == 1:
         flower = "Versicolour"
-        image_file = "images/iris_versicolor.png"
+        image_file = os.path.join(folder, "images", "iris_versicolor.png")
     else:
         flower = "Virginica"
-        image_file = "images/iris_virginica.png"
+        image_file = os.path.join(folder, "images", "iris_virginica.png")
 
     st.subheader("Flower predicted: " + flower)
 
